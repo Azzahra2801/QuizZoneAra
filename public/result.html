@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Quiz | QuizZone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/icon.png">
+</head>
+
+<body class="animated-bg">
+  <!-- 🔝 Navbar -->
+  <nav class="navbar">
+    <div class="logo">🎮 QuizZone</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="quiz.html">Main Quiz</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+    </ul>
+    <button id="theme-toggle">🌓</button>
+  </nav>
+
+  <!-- 🌟 Konten Utama -->
+  <div class="container fade-in" id="result-box">
+    <h2>🎉 Hasil Quiz Kamu</h2>
+    <p id="data-diri"></p>
+    <p id="skor"></p>
+    <div id="badge"></div>
+
+    <button onclick="mainLagi()" class="btn">🔁 Main Lagi</button>
+    <button onclick="bagikanSkor()" class="btn">📤 Bagikan Skor</button>
+    <button onclick="resetRiwayat()" class="btn">🗑️ Reset Riwayat</button>
+  </div>
+
+  <!-- 🧩 Partikel -->
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>particlesJS.load('particles-js', 'particles.json');</script>
+
+  <!-- 🔉 Suara & Script -->
+  <script src="toggleTheme.js"></script>
+  <script>
+    const skor = localStorage.getItem("quizScore") || 0;
+    const nama = localStorage.getItem("quizNama") || "Anonim";
+    const sekolah = localStorage.getItem("quizSekolah") || "-";
+    const asal = localStorage.getItem("quizAsal") || "-";
+
+    const skorText = document.getElementById("skor");
+    const badge = document.getElementById("badge");
+    const box = document.getElementById("result-box");
+    const dataDiri = document.getElementById("data-diri");
+
+    const soundWin = new Audio('sounds/success.mp3');
+    const soundNormal = new Audio('sounds/finish.mp3');
+
+    skorText.innerHTML = `Skor Kamu: <strong>${skor}</strong> dari 5`;
+    dataDiri.innerHTML = `👤 ${nama} | 🏫 ${sekolah} | 📍 ${asal}`;
+
+    if (skor >= 4) {
+      badge.innerHTML = '<p>🏅 Lencana: <strong>Master Quiz!</strong></p>';
+      box.classList.add('badge-highlight');
+      soundWin.play();
+    } else {
+      badge.innerHTML = '<p>🎯 Terus latihan ya!</p>';
+      soundNormal.play();
+    }
+
+    function mainLagi() {
+      window.location.href = "index.html";
+    }
+
+    function bagikanSkor() {
+      const pesan = `Aku baru saja dapat skor ${skor}/5 di QuizZone! 🎉 Yuk coba juga!`;
+      navigator.clipboard.writeText(pesan)
+        .then(() => alert("📋 Teks berhasil disalin!"))
+        .catch(err => alert("Gagal salin teks"));
+    }
+
+    function resetRiwayat() {
+      fetch('http://localhost:3000/api/reset', { method: 'DELETE' })
+        .then(() => {
+          alert("Riwayat berhasil direset!");
+          window.location.href = 'index.html';
+        })
+        .catch(() => alert("Gagal reset riwayat"));
+    }
+  </script>
+</body>
+</html>

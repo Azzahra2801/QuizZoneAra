@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizZone - Bermain Kuis</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="img/icon.png" />
+</head>
+
+<body class="animated-bg">
+  <!-- 🔝 Navbar -->
+  <nav class="navbar">
+    <div class="logo">🎮 QuizZone</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="quiz.html" class="active">Main Quiz</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="riwayat.html">Riwayat</a></li>
+    </ul>
+    <button id="theme-toggle">🌓</button>
+  </nav>
+
+  <!-- 🎯 Kontainer Quiz -->
+  <main>
+    <div id="quiz-container" class="container fade-in"></div>
+
+    <div class="quiz-controls">
+      <button id="nextBtn" class="btn">➡️ Selanjutnya</button>
+    </div>
+  </main>
+
+  <!-- 🧩 Partikel -->
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS.load('particles-js', 'particles.json');
+  </script>
+
+  <!-- 🔉 Suara & Logika Quiz -->
+  <script src="script.js"></script>
+  <script src="toggleTheme.js"></script>
+</body>
+</html>

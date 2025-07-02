@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizZone | Aplikasi Kuis Interaktif</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="img/icon.png">
+</head>
+
+<body class="animated-bg">
+
+  <!-- 🌐 Navbar -->
+  <nav class="navbar glass">
+  <div class="logo"><span>🎮</span> QuizZone</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="quiz.html">Mulai Quiz</a></li>
+    <li><a href="leaderboard.html">Leaderboard</a></li>
+    <li><a href="riwayat.html">Riwayat</a></li>
+    <li><a href="#kontak">Kontak</a></li>
+  </ul>
+  <button id="theme-toggle">🌓</button>
+</nav>
+
+
+  <!-- 💡 Hero Section -->
+  <section class="hero">
+    <h1>Selamat Datang di <span>QuizZone</span> 🎉</h1>
+    <p>Uji pengetahuanmu dan kumpulkan skor tertinggi!</p>
+    <button onclick="scrollToForm()" class="btn">Mulai Sekarang</button>
+  </section>
+
+  <!-- 🙋‍♂️ Form Login -->
+  <div class="container main-menu">
+    <h2>Masukkan Data Diri Kamu:</h2>
+    <div class="login-form">
+      <input type="text" id="nama" placeholder="Nama Lengkap" required>
+      <input type="text" id="asal" placeholder="Asal Daerah" required>
+      <input type="text" id="sekolah" placeholder="Asal Sekolah" required>
+      <button onclick="lanjutkan()" class="btn">Lanjut ➡️</button>
+    </div>
+
+    <!-- 📚 Pilihan Kategori Kuis -->
+    <div id="kategori-container" style="display: none;">
+      <h2>Pilih Kategori Kuis:</h2>
+      <div class="card-container">
+        <div class="card" onclick="mulaiQuiz(9)">🧠 Umum</div>
+        <div class="card" onclick="mulaiQuiz(11)">🎬 Film</div>
+        <div class="card" onclick="mulaiQuiz(17)">🧪 Sains</div>
+        <div class="card" onclick="mulaiQuiz(18)">💻 Komputer</div>
+        <div class="card" onclick="mulaiQuiz(21)">🏀 Olahraga</div>
+        <div class="card" onclick="mulaiQuiz(23)">📜 Sejarah</div>
+      </div>
+      <p>👥 Ajak temanmu untuk main bareng dan bandingkan skor kalian!</p>
+      <div class="button-group">
+        <button onclick="window.location.href='riwayat.html'" class="btn">📊 Riwayat Skor</button>
+        <button onclick="window.location.href='leaderboard.html'" class="btn">🏆 Leaderboard</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 🧩 Partikel Background -->
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS.load('particles-js', 'particles.json');
+  </script>
+
+  <!-- 🧠 Script Logic -->
+  <script>
+    function lanjutkan() {
+      const nama = document.getElementById("nama").value.trim();
+      const asal = document.getElementById("asal").value.trim();
+      const sekolah = document.getElementById("sekolah").value.trim();
+
+      if (!nama || !asal || !sekolah) {
+        alert("Harap isi semua data terlebih dahulu.");
+        return;
+      }
+
+      localStorage.setItem("quizNama", nama);
+      localStorage.setItem("quizAsal", asal);
+      localStorage.setItem("quizSekolah", sekolah);
+
+      document.querySelector(".login-form").style.display = "none";
+      document.getElementById("kategori-container").style.display = "block";
+    }
+
+    function mulaiQuiz(kategori) {
+      localStorage.setItem("quizKategori", kategori);
+      window.location.href = 'quiz.html';
+    }
+
+    function scrollToForm() {
+      document.querySelector('.main-menu').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+  <!-- 🌙 Mode Gelap/Terang -->
+  <script src="toggleTheme.js"></script>
+<footer class="footer">
+  <p>📧 Email: support@quizzone.com | 📱 IG: @quizzone_id</p>
+  <p>&copy; 2025 QuizZone. Dibuat dengan ❤️ untuk belajar interaktif.</p>
+</footer>
+</body>
+</html>
